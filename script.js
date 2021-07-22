@@ -1,3 +1,29 @@
+//Create a child for the final message.
+const container = document.getElementById("container");
+const resultMsg = document.createElement("p");
+container.appendChild(resultMsg);
+
+//Get players's pick from btns. and start the computers pick func.
+const btnR = document.querySelector("#rock");
+btnR.addEventListener("click", () => {
+  let playerPick = "rock";
+  let computer = computerPlay();
+  return computer && playRound(playerPick, computer);
+});
+const btnP = document.querySelector("#paper");
+btnP.addEventListener("click", () => {
+  let playerPick = "paper";
+  let computer = computerPlay();
+  return computer && playRound(playerPick, computer);
+});
+const btnS = document.querySelector("#scissors");
+btnS.addEventListener("click", () => {
+  let playerPick = "scissors";
+  let computer = computerPlay();
+  return computer && playRound(playerPick, computer);
+});
+
+//Makes a random computer pick and return the result.
 function computerPlay() {
   let computerPick = Math.random();
   if (computerPick <= 0.3) {
@@ -9,39 +35,22 @@ function computerPlay() {
   }
 }
 
-function gameStart() {
-    let playerPick = prompt(
-      "Please pick Rock, Paper or Scissors"
-    ).toLowerCase();
-    if (playerPick == "rock" || playerPick == "paper" || playerPick == "scissors") {
-      let computer = computerPlay();
-      return (computer && playRound(playerPick, computer));
-    } else {
-      alert("Please enter a valid answer!");
-      return gameStart();
-    }
-}
-let game = gameStart();
-
+//Makes the comparison of the picks and return the result.
 function playRound(playerPick, computerPick) {
-  console.log(playerPick, computerPick);  
   if (playerPick == "scissors" && computerPick == "paper") {
-      alert("Computer picked Paper!\nYou win!");
-    } else if (playerPick == "rock" && computerPick == "paper") {
-      alert("Computer picked Paper!.\nYou Lose!");
-    } else if (playerPick == "rock" && computerPick == "scissors") {
-      alert("Computer picked Scissors!\nYou win!");
-    } else if (playerPick == "paper" && computerPick == "rock") {
-      alert("Computer picked Rock!\nYou win!");
-    } else if (playerPick == "paper" && computerPick == "scissors") {
-      alert("Computer picked scissors!\nYou lose!");
-    } else if (playerPick == "scissors" && computerPick == "rock") {
-      alert("Computer picked Rock!\nYou lose!");
-    } else {
-      alert("Computer picked the same!\nIt's a draw!");
-    }
+    resultMsg.textContent = "Computer picked Paper!\nYou win!";
+  } else if (playerPick == "rock" && computerPick == "paper") {
+    resultMsg.textContent = "Computer picked Paper!.\nYou Lose!";
+  } else if (playerPick == "rock" && computerPick == "scissors") {
+    resultMsg.textContent = "Computer picked Scissors!\nYou win!";
+  } else if (playerPick == "paper" && computerPick == "rock") {
+    resultMsg.textContent = "Computer picked Rock!\nYou win!";
+  } else if (playerPick == "paper" && computerPick == "scissors") {
+    resultMsg.textContent = "Computer picked Scissors!\nYou lose!";
+  } else if (playerPick == "scissors" && computerPick == "rock") {
+    resultMsg.textContent = "Computer picked Rock!\nYou lose!";
+  } else {
+    resultMsg.textContent = "Computer picked the same!\nIt's a draw!";
   }
+}
 
-
-
-console.log(gameStart());
