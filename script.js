@@ -37,20 +37,22 @@ function computerPlay() {
 
 //Makes the comparison of the picks and return the result.
 function playRound(playerPick, computerPick) {
-  if (playerPick == "scissors" && computerPick == "paper") {
-    resultMsg.textContent = "Computer picked Paper!\nYou win!";
-  } else if (playerPick == "rock" && computerPick == "paper") {
-    resultMsg.textContent = "Computer picked Paper!.\nYou Lose!";
-  } else if (playerPick == "rock" && computerPick == "scissors") {
-    resultMsg.textContent = "Computer picked Scissors!\nYou win!";
-  } else if (playerPick == "paper" && computerPick == "rock") {
-    resultMsg.textContent = "Computer picked Rock!\nYou win!";
-  } else if (playerPick == "paper" && computerPick == "scissors") {
-    resultMsg.textContent = "Computer picked Scissors!\nYou lose!";
-  } else if (playerPick == "scissors" && computerPick == "rock") {
-    resultMsg.textContent = "Computer picked Rock!\nYou lose!";
+  let playRoundResult;
+  if (
+    (playerPick == "scissors" && computerPick == "paper") ||
+    (playerPick == "rock" && computerPick == "scissors") ||
+    (playerPick == "paper" && computerPick == "rock")
+  ) {
+    playRoundResult = "win!";
+  } else if (
+    (playerPick == "rock" && computerPick == "paper") ||
+    (playerPick == "paper" && computerPick == "scissors") ||
+    (playerPick == "scissors" && computerPick == "rock")
+  ) {
+    playRoundResult = "lose!";
   } else {
-    resultMsg.textContent = "Computer picked the same!\nIt's a draw!";
+    playRoundResult = "draw!";
   }
+  resultMsg.textContent =
+    "Computer picked" + computerPick + "!" + "You " + playRoundResult;
 }
-
