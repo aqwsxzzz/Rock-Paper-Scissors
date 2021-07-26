@@ -4,6 +4,7 @@ let playerScore = 0;
 let computerScore = 0;
 let playerPick;
 let computerPick;
+let tryAgain;
 
 //Creates childs for the welcome messages div (#title).
 const title = document.getElementById("title");
@@ -15,6 +16,7 @@ title.append(welcomeMsg, subTitle);
 
 //Get players's pick from btns. and start the computers pick func.
 function playerPlay(playerPick) {
+  hidden();
   let computer = computerPlay();
   return computer && playRound(playerPick, computer);
 }
@@ -30,8 +32,8 @@ const btnS = document.querySelector("#scissors");
 btnS.addEventListener("click", (e) => {
   playerPlay(e.target.id);
 });
-
-//Create a child for the final message and score counter.
+//Create a child for the final message and score counter
+//and remove hidden attribute from restart.
 const container = document.getElementById("container");
 const resultMsg = document.createElement("p");
 const scoreCounter = document.createElement("p");
@@ -39,6 +41,11 @@ const pickAgain = document.createElement("p");
 container.appendChild(resultMsg);
 container.insertBefore(pickAgain, btnR);
 container.insertBefore(scoreCounter, pickAgain);
+function hidden() {
+  pickAgain.removeAttribute("hidden");
+  resultMsg.removeAttribute("hidden");
+  scoreCounter.removeAttribute("hidden");
+}
 
 //Makes a random computer pick and return the result.
 function computerPlay() {
@@ -54,6 +61,7 @@ function computerPlay() {
 
 //Makes the comparison of the picks and return the round result.
 function playRound(playerPick, computerPick) {
+  console.log(playerPick, computerPick);
   if (
     (playerPick == "scissors" && computerPick == "paper") ||
     (playerPick == "rock" && computerPick == "scissors") ||
@@ -82,7 +90,6 @@ function playRound(playerPick, computerPick) {
 
   score(playRoundResult);
 }
-
 //Make the game to 5 rounds updating the score of each player.
 function score(result) {
   if (result === "won") {
@@ -105,7 +112,11 @@ function finalScore() {
     scoreCounter.textContent =
       "Player: " + playerScore + " Computer: " + computerScore;
   }
-  let tryAgain = document.createElement("button");
+  btnR.disabled = true;
+  btnP.disabled = true;
+  btnS.disabled = true;
+  tryAgain = document.createElement("button");
+  tryAgain.removeAttribute("hidden");
   tryAgain.textContent = "Play again!";
   container.append(pickAgain, tryAgain);
   tryAgain.addEventListener("click", () => {
@@ -116,8 +127,11 @@ function finalScore() {
 function playAgain() {
   playerScore = 0;
   computerScore = 0;
-  container.removeChild(resultMsg);
-  container.removeChild(pickAgain);
-  container.removeChild(scoreCounter);
-  container.remove(tryAgain);
+  pickAgain.setAttribute("hidden", true);
+  resultMsg.setAttribute("hidden", true);
+  scoreCounter.setAttribute("hidden", true);
+  tryAgain.setAttribute("hidden", true);
+  btnR.disabled = false;
+  btnP.disabled = false;
+  btnS.disabled = false;
 }
