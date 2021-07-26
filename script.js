@@ -61,7 +61,6 @@ function computerPlay() {
 
 //Makes the comparison of the picks and return the round result.
 function playRound(playerPick, computerPick) {
-  console.log(playerPick, computerPick);
   if (
     (playerPick == "scissors" && computerPick == "paper") ||
     (playerPick == "rock" && computerPick == "scissors") ||
